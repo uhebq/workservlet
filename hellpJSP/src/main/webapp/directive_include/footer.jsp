@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>hi</h1>
+        <footer>
+          <img src="images/footer.jpg" alt="">
+        </footer>
 </body>
 </html>
