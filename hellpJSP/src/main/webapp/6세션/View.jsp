@@ -38,7 +38,7 @@
 	function deletePost(){
 		var res = confirm("삭제 하시겠습니까?");
 		if (res){
-			location.href="DeletePrecess.jsp?num=<%=board.getNum()%>"
+			location.href="DeleteProcess.jsp?num=<%=board.getNum()%>"
 		}
 	}
 </script>
@@ -82,7 +82,7 @@
 	<button type="button"
 		onclick = "location.href='Edit.jsp?num=<%=board.getNum()%>'">수정하기</button>
 	<button type="button"
-		onclick = "">삭제하기</button>	
+		onclick = "deletePost()">삭제하기</button>	
 				
 				<% } %>
 				
