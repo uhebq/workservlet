@@ -9,6 +9,7 @@ import java.util.List;
 
 import common.DBConnPool;
 import dto.Board;
+import dto.Criteria;
 
 /**
  * 
@@ -55,16 +56,17 @@ public class BoardDao {
 	 * 게시물의 총 갯수를 반환합니다.
 	 * @return 게시물의 총 갯수
 	 */
-	public int getTotalCnt(String searchField, String searchWord) {
+	public int getTotalCnt(Criteria criteria) {
 		int totalCnt = 0;
-		String sql = "select count(*)" + "from board";
+		String sql = "select count(*) "
+					+ "from board ";
+		if(criteria.getSearchWord() != null && !"".equals(criteria.getSearchWord())) {
+			sql += "where "+ criteria.getSearchField() +" like '%"+ criteria.getSearchWord() +"%'";
+		}	
 		
-		if(searchWord != null && !"".equals(searchWord)) {
-			sql += " where " + searchField +" like '%" + searchWord + "%'";
-		}
-		sql += " order by num desc";
+		sql += "order by num desc";
 		
-		// System.out.println(sql);
+		//System.out.println(sql);
 		
 		try (Connection conn = DBConnPool.getConnection();
 				PreparedStatement psmt = conn.prepareStatement(sql);){
@@ -74,7 +76,7 @@ public class BoardDao {
 			
 			rs.close();
 		} catch (SQLException e) {
-			System.err.println("총 게시물의 수를 조회하던 중 예외가 발생하였습니다.");
+			System.out.println("총 게시물의 수를 조회 하던중 예외가 발생 하였습니다.");
 			e.printStackTrace();
 		}
 		
@@ -91,26 +93,27 @@ public class BoardDao {
 	public List<Board> getList(String searchField, String searchWord) {
 		List<Board> boardList = new ArrayList<>();
 		
-		String sql = "select * from board ";
-		
+		String sql = "select * "
+					+ "from board ";
+				
 		// 검색어가 입력 되었으면 검색 조건을 추가 합니다.
 		if(searchWord != null 
 				&& !"".equals(searchWord)){		
-
+			
 			sql 	+=	"where " + searchField 
 							+" like '%" + searchWord + "%'";
 		}
-				
-		sql		+= 	"order by num desc";
 		
+		sql		+= 	"order by num desc";
+
 		// 검색조건 추가
-		try(Connection conn = DBConnPool.getConnection();
+		try (Connection conn = DBConnPool.getConnection();
 				PreparedStatement psmt = conn.prepareStatement(sql);){
 			ResultSet rs = psmt.executeQuery();
 			
 			// 게시글의 수만큼 반복
 			while(rs.next()) {
-				// 게시물의 한 행을 DTO에 저장
+				// 게시물의 한행을 DTO에 저장
 				Board board = new Board();
 				
 				board.setNum(rs.getString("num"));
@@ -121,10 +124,67 @@ public class BoardDao {
 				board.setVisitcount(rs.getString("visitcount"));
 				
 				boardList.add(board); // 결과 목록에 저장
-				
 			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("게시물 조회 중 예외 발생");
+			e.printStackTrace();
+		}
+		return boardList;
+	}
+	
+	/**
+	 * 
+	 * 게시글 목록을 조회 합니다.
+	 * 
+	 * @param searchField : 검색조건
+	 * @param searchWord : 검색어
+	 * @return List<Board> : 게시글 목록
+	 */
+	public List<Board> getListPage(Criteria criteria) {
+		List<Board> boardList = new ArrayList<>();
+		
+		String sql = ""
+				+ "select * from ("
+				+ "    select rownum rn, t.*  from ("
+				
+				+ "select *"
+					+ "from board ";
+				
+		// 검색어가 입력 되었으면 검색 조건을 추가 합니다.
+		if(criteria.getSearchWord() != null 
+				&& !"".equals(criteria.getSearchWord())){		
+			
+			sql 	+=	"where " + criteria.getSearchField() 
+							+" like '%" + criteria.getSearchWord() + "%'";
+		}
+		
+		sql		+= 	"order by num desc"
+				+ ")t )"
+				+ "where rn between "+ criteria.getStartNo()
+				+ " and "+ criteria.getEndNo();
+
+		// 검색조건 추가
+		try (Connection conn = DBConnPool.getConnection();
+				PreparedStatement psmt = conn.prepareStatement(sql);){
+			ResultSet rs = psmt.executeQuery();
+			
+			// 게시글의 수만큼 반복
+			while(rs.next()) {
+				// 게시물의 한행을 DTO에 저장
+				Board board = new Board();
+				
+				board.setNum(rs.getString("num"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setId(rs.getString("id"));
+				board.setPostdate(rs.getString("postdate"));
+				board.setVisitcount(rs.getString("visitcount"));
+				
+				boardList.add(board); // 결과 목록에 저장
+			}
+			
+		} catch (SQLException e) {
 			System.out.println("게시물 조회 중 예외 발생");
 			e.printStackTrace();
 		}
@@ -190,10 +250,14 @@ public class BoardDao {
 		return res;
 	}
 	
+	/**
+	 * 게시물 수정하기
+	 * @param board
+	 * @return
+	 */
 	public int update(Board board) {
 		int res = 0;
-		String sql = ""
-				+ "update board"
+		String sql = "update board"
 				+ "	set title=?, content=? "
 				+ "	where num=?";
 		

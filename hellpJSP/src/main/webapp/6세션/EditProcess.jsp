@@ -31,10 +31,10 @@
 	
 	if(res > 0){
 		// 성공 : 메세지 출력 상세페이지로 이동
-		JSFunction.alertLocation("수정완료", "Board.jsp", out);
+		JSFunction.alertLocation("수정 되었습니다.", "View.jsp?num=" + board.getNum(), out);
 	} else {
 		// 실패 : 메세지 출력
-		JSFunction.alertBack("실패", out);
+		JSFunction.alertBack("수정하기 실패 하였습니다. 관리자에게 문의해주세요.", out);
 	}
 	
 	%>

@@ -9,6 +9,7 @@
 </head>
 <body>
 <h2>회원제 게시판 - 글쓰기(Write)</h2>
+<form action="WriteProcess.jsp">
     <table border="1" width="90%">
         <tr>
             <td>제목</td>

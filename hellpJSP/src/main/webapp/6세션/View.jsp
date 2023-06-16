@@ -13,13 +13,12 @@
 	<%
 		BoardDao dao = new BoardDao();
 		dao.updateVisitCount(request.getParameter("num"));
-		// request.getParameter();
+		// request.getParameter("num") : 조회하려는 게시글 번호
 		// 게시글 1건을 조회 후 board 객체에 담아서 반환
 		Board board = dao.selectOne(request.getParameter("num"));
 		
 		if(board == null){
 			JSFunction.alertBack("게시글이 존재하지 않습니다.", out);
-			
 			return;
 		}
 		
