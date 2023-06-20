@@ -16,38 +16,35 @@
 	}
 </script>
 
-	<%
-	
-		/*
-		int pageNo = request.getParameter("pageNo")==null
-			?1:Integer.parseInt(request.getParameter("pageNo"));
-	
-		Criteria criteria = new Criteria(pageNo);
-		int total = 300;
-		PageDto pageDto = new PageDto(total, criteria);
-		*/
-		
-		if(pageDto.isPrev()){
-			// 1페이지 호출
-			out.print("<input type='button' value='<<'"
-					+" onclick='go(1)'>");
-			// 이전 페이지 블럭
-			out.print("<input type = 'button' value='<'"
-					+" onclick='go("+(pageDto.getStartNo()-1)+")'>");
-		}
-		
-		for(int i=pageDto.getStartNo(); i<=pageDto.getEndNo();i++){
-			out.print("<input type = 'button' value='"+i+"' onclick='go("+i+")'>");
-		}
-		
-		if(pageDto.isNext()){
-			// 이후 페이지 블럭
-			out.print("<input type = 'button' value='>'"
-					+" onclick='go("+(pageDto.getEndNo()+1)+")'>");
-			// 마지막 페이지 블럭
-			out.print("<input type='button' value='>>'"
-					+" onclick='go("+(pageDto.getRealEnd())+")'>");
-		}
-	%>
+<!-- 영역에 저장 -->
+<c:set var="pageDto" value="<%=pageDto %>"></c:set>
+<c:if test="${pageDto.prev}">
+
+
+</c:if>
+
+<%
+
+
+	if(pageDto.isPrev()){
+		// 1페이지 호출
+				out.print("<input type='button' value='<<'" 
+								+" onclick='go(1)'>");
+		// 이전 페이지 블럭
+		out.print("<input type='button' value='<'" 
+						+" onclick='go("+(pageDto.getStartNo()-1)+")'>");
+	}
+	for(int i=pageDto.getStartNo();i<=pageDto.getEndNo();i++){
+		out.print("<input type='button' value='"+i+"' onclick='go("+i+")'>");
+	}
+	if(pageDto.isNext()){
+		// 이후 페이지 블럭
+		out.print("<input type='button' value='>'"
+						+" onclick='go("+(pageDto.getEndNo()+1)+")'>");
+		// 마지막 페이지 블럭
+		out.print("<input type='button' value='>>'"
+						+" onclick='go("+(pageDto.getRealEnd())+")'>");
+	}
+%>
 </body>
 </html>
