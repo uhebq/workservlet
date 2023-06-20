@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
+<script>
 	function go(page){
-		lacation.href = "PageNavi.jsp?pageNo="+page;
+		lacation.href = "Page.jsp?pageNo="+page;
 	}
 </script>
 
