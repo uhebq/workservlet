@@ -21,9 +21,10 @@
 	    var 	: 변수명
 	    
      -->
-	 
+	 <!-- 절대경로를 작성해주지 않으면 자동으로 붙여주지 않아 오류 -->
 	 <a href="/12JSTL/inc/OtherPage.jsp">페이지 바로가기</a><br>
 	 
+	 <!-- 절대경로를 작성해주지 않아도 자동으로 붙여줌 -->
 	 <c:url value="/12JSTL/inc/OtherPage.jsp" var="url"></c:url>
 	 <a href="${url }">url 태그를 이용한 바로가기</a>
 	 

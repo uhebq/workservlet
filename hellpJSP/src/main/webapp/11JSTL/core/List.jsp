@@ -39,7 +39,7 @@
 	
 %>
 <body>
-<%@include file="../../6세션/Link.jsp" %>
+<%@include file="/6세션/Link.jsp" %>
 	<h1>new</h1>
     <h2>목록 보기(List)</h2>
     <!-- 검색폼 --> 
@@ -87,13 +87,13 @@
 			-->
 			<c:forEach items="${list }" var="board">
 		        <tr align="center">
-		            <td>${board.getNum }</td>  <!--게시물 번호-->
+		            <td>${board.num }</td>  <!--게시물 번호-->
 		            <td align="left">  <!--제목(+ 하이퍼링크)-->
-		                <a href="View.jsp?num=<%=board.getNum()%>&pageNo=<%=criteria.getPageNo()%>"><%=board.getTitle() %></a>
+		                <a href="View.jsp?num=<%=board.num()%>&pageNo=<%=criteria.getPageNo()%>"><%=board.title() %></a>
 		            </td>
-		            <td align="center"><%=board.getId() %></td>          <!--작성자 아이디-->
-		            <td align="center"><%=board.getVisitcount() %></td>  <!--조회수-->
-		            <td align="center"><%=board.getPostdate() %></td>    <!--작성일-->
+		            <td align="center"><%=board.id() %></td>          <!--작성자 아이디-->
+		            <td align="center"><%=board.visitcount() %></td>  <!--조회수-->
+		            <td align="center"><%=board.postdate() %></td>    <!--작성일-->
 		        </tr>
 		    </c:forEach>
 	    </c:if>
