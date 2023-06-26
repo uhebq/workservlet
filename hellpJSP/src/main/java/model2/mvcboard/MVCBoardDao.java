@@ -202,7 +202,7 @@ public class MVCBoardDao {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return res;
 	}
 
 	public int delete(String idx) {
@@ -210,10 +210,10 @@ public class MVCBoardDao {
 
 		String sql = "delete from mvcboard where idx = ?";
 		
-		
+		System.out.println("sql : " + sql);
+		System.out.println("idx : " + idx);
 		try (Connection conn = DBConnPool.getConnection();
 				PreparedStatement psmt = conn.prepareStatement(sql);) {
-			
 			psmt.setString(1, idx);
 			
 			res = psmt.executeUpdate();
@@ -225,5 +225,31 @@ public class MVCBoardDao {
 		
 		
 		return res;
-	}	
+	}
+
+	public int insert(MVCBoardDto dto) {
+		int res = 0;
+		String sql = "insert into mvcboard "
+				+ "		(idx, name, title, content, pass, ofile, sfile) "
+				+ "   values "
+				+ "		(seq_board_num.nextval, ?, ?, ?, ?, ?, ?)";
+		
+		try (Connection conn = DBConnPool.getConnection();
+				PreparedStatement psmt = conn.prepareStatement(sql);){
+			
+			psmt.setString(1, dto.getName());
+			psmt.setString(2, dto.getTitle());
+			psmt.setString(3, dto.getContent());
+			psmt.setString(4, dto.getPass());
+			psmt.setString(5, dto.getOfile());
+			psmt.setString(6, dto.getSfile());
+			
+			res = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("게시물 입력중 예외 발생");
+			e.printStackTrace();
+		}	
+		return res;
+	}
 }

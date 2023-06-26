@@ -11,7 +11,7 @@
 <body>
 	<aside id='rightside'>
 	<div class='side1'>
-		<form action ="loginAction.jsp" method = "post">
+		<form action ="./LoginAction.do" method = "post">
 		<%
 		
 			String userId = CookieManager.readCookie(request, "userId");
@@ -33,7 +33,7 @@
 		%>
 		
 		
-		<%=name+"님 환영" %>
+		<%=name+"님 환영합니다." %>
 		
 		<%
 			} else{

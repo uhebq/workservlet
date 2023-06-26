@@ -15,10 +15,10 @@ public class ListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		// 리스트 조회
 		MVCBoardDao dao = new MVCBoardDao();
-		
+	
 		// 검색어, 페이지정보 세팅
 		String searchField = req.getParameter("searchField");
 		String searchWord = req.getParameter("searchWord");

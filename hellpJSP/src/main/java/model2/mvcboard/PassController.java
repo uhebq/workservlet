@@ -23,17 +23,20 @@ public class PassController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		// mode : 수정(edit), 삭제(delete)
-		request.setAttribute("mode", request.getParameter("mode"));
-		request.setAttribute("idx", request.getAttribute("idx"));
+		//request.setAttribute("mode", request.getParameter("mode"));
+		//request.setAttribute("idx", request.getParameter("idx"));
 		
 		request.getRequestDispatcher("../14MVCBoard/Pass.jsp").forward(request, response);
+		
+	
 	}
 
 	/**
@@ -45,37 +48,46 @@ public class PassController extends HttpServlet {
 		String mode = request.getParameter("mode");
 		String pass = request.getParameter("pass");
 		
+		
 		MVCBoardDao dao = new MVCBoardDao();
 		
 		// 게시글의 비밀번호가 일치하는지 확인
 		boolean confirmed = dao.comfirmPassword(pass, idx);
-		
+	
+
 		if(confirmed) {
 			// 비밀번호 체크 성공
-			System.out.println("비밀번호 검증 성공");
+			System.out.println("비밀번호 검증 성공!!!!");
 			if(mode.equals("edit")) {
 				// 수정
 				response.sendRedirect("../mvcboard/edit.do?idx="+idx);
 			} else if(mode.equals("delete")) {
 				// 삭제
 				int res = dao.delete(idx);
-				if(res > 0) {
+				
+				System.out.println("res : " + res);
+				
+				if(res>0) {
 					// 삭제성공
-					JSFunction.alertLocation(response, "../mvcboard/list.do" , "삭제 되었습니다" );
+					JSFunction.alertLocation(response
+												, "../mvcboard/list.do"
+												, "삭제 되었습니다.");
 				} else {
-					// 삭제 실패
-					// 메세지 처리 후 이전화면으로
-					JSFunction.alertBack(response, "게시물 삭제에 실패하였습니다");
-					
+					// 게시물 삭제 실패
+					// 메세지 처리후 이전화면으로
+					JSFunction.alertBack(response, "게시물 삭제에 실패 하였습니다. 관리자에게 문의 해주세요");
 				}
+				
+				
 			}
-			
+
 		} else {
 			// 비밀번호 체크 실패
-			// 메세지 처리 후 이전화면으로
-			JSFunction.alertBack(response, "비밀번호 검증에 실패하였습니다.");
+			// 메세지 처리후 이전화면으로
+			JSFunction.alertBack(response, "비밀번호 검증에 실패 하였습니다.");
 			
 		}
+		
 	}
 
 }
