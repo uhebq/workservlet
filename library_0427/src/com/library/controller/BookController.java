@@ -27,7 +27,7 @@ public class BookController extends HttpServlet{
 			Criteria cri = new Criteria(req.getParameter("searchField"), req.getParameter("searchWord"), req.getParameter("pageNo"));
 			
 			// 리스트 조회 및 요청 객체에 저장
-			req.setAttribute("list", bs.getList());
+			req.setAttribute("list", bs.getList(cri));
 			
 			// 포워딩
 			req.getRequestDispatcher("./list.jsp").forward(req, resp);

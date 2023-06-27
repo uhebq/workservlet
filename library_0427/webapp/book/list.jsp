@@ -5,15 +5,36 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/style.css">
-<script>
-
+<link rel="stylesheet" href="../css/style1.css">
+<script type="text/javascript">
+	
+	let message = '${message}';
+	if(message != null && "" != message){
+		alert(message);
+	}
+	
+	function deleteBook(){
+		// 체크박스가 선택된 요소는 value값을 ,로 연결
+		delNoList = document.querySelectorAll("[name=delNo]:checked");
+		
+		let delNo = "";
+		delNoList.forEach((e)=>{
+			delNo += e.value + ',';
+		});
+		
+		delNo = delNo.substr(0, delNo.length-1);
+		console.log("삭제할 번호 : "+delNo);
+		// 삭제 요청
+		searchForm.action= "../book/delete.book";
+		searchForm.delNo.value= delNo;
+		searchForm.submit();
+	}
 </script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<h2>도서목록</h2>
-	총 건수 :
+	총 건수 : ${map.totalCnt }
 	<!-- 검색 폼 시작 -->
 	<%@ include file ="../common/SearchForm.jsp" %>
 	<!-- 검색 폼 끝 -->
@@ -24,7 +45,7 @@
 			<td colspan="5" class="right">
 				<!-- 어드먼 계정인 경우 등록, 삭제 버튼을 출력 -->
 				<button>도서등록</button>
-				<button>도서삭제</button>
+				<button onclick="deleteBook()">도서삭제</button>
 			</td>
 		</tr>
 	</c:if>
@@ -36,13 +57,13 @@
 		<th width="20%">대여여부/반납일</th>
 		<th width="20%">등록일</th>
 	</tr>
-	<c:if test="${empty list}" var="res">
+	<c:if test="${empty map.list}" var="res">
 		<tr>
 			<td colspan="5" class="center">등록된 게시물 없음</td>
 		</tr>
 	</c:if>
 	<c:if test = "${not res }">
-		<c:forEach items="${list }" var="book" step="1">
+		<c:forEach items="${map.list }" var="book" step="1">
 		<tr>
 			<td class="center">
 			<!-- 삭제용 체크박스 -->
@@ -55,6 +76,7 @@
 			</td>
 			<td>${book.author }</td>
 			<td>${book.rentYn }</td>
+			<td></td>
 		</tr>
 		</c:forEach>
 	</c:if>

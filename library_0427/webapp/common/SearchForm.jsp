@@ -11,13 +11,14 @@
 	<form method="get" name="searchForm">		
 		<!-- 페이지 번호 -->
 		<input type="text" name="pageNo">
+		<input type="text" name="delNo">
 		
 		<table border="1" width="100%">
 			 <tr>
         		<td align="center">
             		<select name="searchField"> 
-                		<option value="title">제목</option> 
-                		<option value="content" ${param.searchField eq "content" ? "selected" : ""}>내용</option>
+                		<option value="title">도서명</option> 
+                		<option value="content" ${param.searchField eq "content" ? "selected" : ""}>작가명</option>
             		</select>
             		<input type="text" name="searchWord" value="${param.searchWord }">
             		<input type="submit" value="검색하기">
