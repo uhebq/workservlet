@@ -13,15 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 
 public class FileUtil {
-
-	public static void download(HttpServletRequest request, HttpServletResponse response, String saveDirectory){
+	
+	/**
+	 * 파일 다운로드
+	 * @param request
+	 * @param response
+	 * @param saveDirectory
+	 */
+	public static void download(HttpServletRequest request, HttpServletResponse response, String saveDirectory, String originalFilename, String saveFileName){
 	
 		// 업로드파일이 저장된 경로
 		// String saveDirectory = "c:/upload";
 		// 원본 파일이름
-		String originalFilename = request.getParameter("oName");
+		//String originalFilename = request.getParameter("oName");
 		// 저장된 파일이름
-		String saveFileName = request.getParameter("sName");
+		//String saveFileName = request.getParameter("sName");
 		
 		System.out.print("ofileName : " + originalFilename + "<br>");
 		System.out.print("sfileName : " + saveFileName+ "<br>");
@@ -35,7 +41,7 @@ public class FileUtil {
 			
 			// 한글 파일명 깨짐 방지
 		    String client = request.getHeader("User-Agent");
-			// ie체크
+			// ie 체크
 		    if (client.indexOf("WOW64") == -1) {
 		        originalFilename = 
 	        		new String(originalFilename.getBytes("UTF-8"), "ISO-8859-1");
@@ -87,6 +93,7 @@ public class FileUtil {
 	
 	/**
 	 * 파일 업로드
+	 * 파일 업로드(multipart/from-data 요청)처리
 	 * @return
 	 */
 	public static MultipartRequest uploadFile(HttpServletRequest req, String saveDirectory, int maxPostSize) {

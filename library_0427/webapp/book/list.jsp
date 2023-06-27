@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../css/style.css">
+<script>
+
+</script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
@@ -34,7 +38,7 @@
 	</tr>
 	<c:if test="${empty list}" var="res">
 		<tr>
-			<td colspan="5">등록된 게시물 없음</td>
+			<td colspan="5" class="center">등록된 게시물 없음</td>
 		</tr>
 	</c:if>
 	<c:if test = "${not res }">
@@ -54,10 +58,13 @@
 		</tr>
 		</c:forEach>
 	</c:if>
-	</table>
-
+	<tr>
 	<!-- 페이징 -->
-	
+			<td colspan='5'>
+				<%@include file="../common/PageNavi.jsp" %>
+			</td>
+	</tr>	
+	</table>
 	<!-- 상세 -->
 	
 	<!-- 삭제 -->

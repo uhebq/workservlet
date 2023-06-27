@@ -15,7 +15,7 @@ import com.utils.CookieManager;
 /**
  * Servlet implementation class LoginAction
  */
-@WebServlet("/LoginAction.do")
+@WebServlet("/login/LoginAction.do")
 public class LoginAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,7 +32,7 @@ public class LoginAction extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class LoginAction extends HttpServlet {
 				String pw = request.getParameter("userpw");
 				 String saveCheck = request.getParameter("saveCheck");
 			      
-				 System.out.print("saveCheck : " +saveCheck);
+				 //System.out.print("saveCheck : " +saveCheck);
 			      // 체크박스가 체크되었을경우, 아이디를 쿠키에 저장
 			      if(saveCheck != null && saveCheck.equals("Y")){
 			    	  System.out.print("쿠키 생성");
@@ -69,7 +69,8 @@ public class LoginAction extends HttpServlet {
 						session.setAttribute("adminYN", "Y");
 					}
 					
-					request.getRequestDispatcher("../book/list.book").forward(request, response);
+					response.sendRedirect("../book/list.book");
+					//request.getRequestDispatcher("../book/list.book").forward(request, response);
 					
 				} else {
 					// 로그인 실패

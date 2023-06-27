@@ -45,7 +45,7 @@ public class JSFunction {
 			// 삽입할 자바 스크립트 코드
 			String script = ""
 						+ "<script>"
-						+ "		alert('"+msg+"');"
+						+ "		alert('" + msg + "');"
 						+ "		history.go(-1);"
 						+ "</script>";
 			// 화면에 출력
