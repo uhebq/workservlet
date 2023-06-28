@@ -1,5 +1,5 @@
 <%@page import="dao.BoardDao"%>
-<%@page import="common.JSFunction"%>
+<%@page import="com.utils.JSFunction"%>
 <%@page import="dto.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

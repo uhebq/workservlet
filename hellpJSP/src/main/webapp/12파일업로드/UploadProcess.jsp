@@ -3,7 +3,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="fileupload.FileDao"%>
 <%@page import="fileupload.FileDto"%>
-<%@page import="common.JSFunction"%>
+<%@page import="com.utils.JSFunction"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

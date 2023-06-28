@@ -18,7 +18,7 @@
         		<td align="center">
             		<select name="searchField"> 
                 		<option value="title">도서명</option> 
-                		<option value="content" ${param.searchField eq "content" ? "selected" : ""}>작가명</option>
+                		<option value="author" ${param.searchField eq "author" ? "selected" : ""}}>작가명</option>
             		</select>
             		<input type="text" name="searchWord" value="${param.searchWord }">
             		<input type="submit" value="검색하기">

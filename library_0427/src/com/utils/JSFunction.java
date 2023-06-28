@@ -1,4 +1,4 @@
-package common;
+package com.utils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 
 public class JSFunction {
+	
 	public  JSFunction() {
 		
 	}
@@ -22,8 +23,8 @@ public class JSFunction {
 			// 삽입할 자바스크립트 코드
 			String script = ""
 						+ "<script>"
-						+ "		alert('"+msg+"');"
-						+ "		location.href='"+url+"';"
+						+ "alert('"+msg+"');"
+						+ "location.href='"+url+"';"
 						+ "</script>";
 			
 			// 화면에 출력
@@ -45,8 +46,8 @@ public class JSFunction {
 			// 삽입할 자바 스크립트 코드
 			String script = ""
 						+ "<script>"
-						+ "		alert('" + msg + "');"
-						+ "		history.go(-1);"
+						+ "alert('"+msg+"');"
+						+ "history.go(-1);"
 						+ "</script>";
 			// 화면에 출력
 			// 자바스크립트 코드를 out 내장 객체로 출력
@@ -59,11 +60,10 @@ public class JSFunction {
 
 	public static void alertBack(HttpServletResponse response, String msg) {
 		response.setContentType("text/html;charset=utf=8");
-		
 		try {
 			String script = "<script>"
-					+ "		alert('" + msg + "')"
-					+ "		history.back();"	
+					+ "alert('" + msg + "')"
+					+ "history.back();"	
 					+ "</script>";
 			
 			PrintWriter writer = response.getWriter();

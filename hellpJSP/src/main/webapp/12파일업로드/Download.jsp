@@ -1,5 +1,5 @@
 <%@page import="java.io.FileNotFoundException"%>
-<%@page import="common.JSFunction"%>
+<%@page import="com.utils.JSFunction"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.io.FileInputStream"%>
 <%@page import="java.io.InputStream"%>

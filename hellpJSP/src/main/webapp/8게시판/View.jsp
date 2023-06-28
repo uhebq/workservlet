@@ -1,6 +1,6 @@
 <%@page import="dto.Board"%>
 <%@page import="dao.NewBoardDao"%>
-<%@page import="common.JSFunction"%>
+<%@page import="com.utils.JSFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

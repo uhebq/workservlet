@@ -1,4 +1,4 @@
-<%@page import="common.JSFunction"%>
+<%@page import="com.utils.JSFunction"%>
 <%@page import="dao.NewBoardDao"%>
 <%@page import="dao.BoardDao"%>
 <%@page import="dto.Board"%>
